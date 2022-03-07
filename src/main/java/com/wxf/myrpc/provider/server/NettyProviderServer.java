@@ -13,11 +13,8 @@ import org.springframework.context.ApplicationEvent;
 import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.context.event.ContextStartedEvent;
 import org.springframework.context.event.SmartApplicationListener;
-
-import java.lang.reflect.Method;
 import java.net.InetSocketAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
+
 
 public class NettyProviderServer implements SmartApplicationListener, ApplicationContextAware {
 
@@ -45,6 +42,7 @@ public class NettyProviderServer implements SmartApplicationListener, Applicatio
                         new ChannelInitializer<SocketChannel>() {
                             @Override
                             protected void initChannel(SocketChannel ch) throws Exception {
+                                ch.pipeline().addLast(new NettyCodec(RpcRequest.class));
                                 ch.pipeline().addLast(new NettyProviderHandler(context));
                             }
                         }

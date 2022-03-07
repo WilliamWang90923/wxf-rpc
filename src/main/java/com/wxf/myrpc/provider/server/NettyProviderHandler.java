@@ -21,12 +21,12 @@ public class NettyProviderHandler extends SimpleChannelInboundHandler {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
 
-        ByteBuf buf = (ByteBuf) msg;
-        byte[] msgs = new byte[buf.readableBytes()];
-        System.out.println(msg);
-        buf.readBytes(msgs);
+//        ByteBuf buf = (ByteBuf) msg;
+//        byte[] msgs = new byte[buf.readableBytes()];
+//        System.out.println(msg);
+//        buf.readBytes(msgs);
 
-        RpcRequest rpcRequest = (RpcRequest) new JsonSerialization().deserialize(msgs, RpcRequest.class);
+        RpcRequest rpcRequest = (RpcRequest) msg;
         String className = rpcRequest.getClassName();
         String methodName = rpcRequest.getMethodName();
         Object[] args = rpcRequest.getArgs();

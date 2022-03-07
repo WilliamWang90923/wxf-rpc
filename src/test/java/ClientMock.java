@@ -9,23 +9,39 @@ import java.net.Socket;
 
 public class ClientMock {
 
-    public static void main(String[] args) throws IOException {
-        // 1. body
-        RpcRequest request = new RpcRequest();
-        request.setClassName("com.wxf.rpc.SmsService");
-        request.setMethodName("send");
-        request.setArgs(new Object[]{"13866188370", "I am mom."});
-        request.setParameterTypes(new Class[]{String.class, String.class});
-        byte[] body = new JsonSerialization().serialize(request);
+    final static byte[] MAGIC = new byte[]{(byte) 0xda, (byte) 0xbb};
 
+    public static void main(String[] args) throws Exception {
+        // 1. body
+        RpcRequest rpcRequest = new RpcRequest();
+        rpcRequest.setClassName("com.wxf.rpc.SmsService");
+        rpcRequest.setMethodName("send");
+        rpcRequest.setParameterTypes(new Class[]{String.class, String.class});
+        rpcRequest.setArgs(new Object[]{"13800138000", "iamtony"});
+        byte[] body = new JsonSerialization().serialize(rpcRequest);
+        System.out.println(body.length + " - request-body:" + new String(body));
+        // build request
         // 2. header
         ByteBuf requestBuffer = Unpooled.buffer();
-        requestBuffer.writeByte(0xda);
-        requestBuffer.writeByte(0xbb);
+        requestBuffer.writeByte(MAGIC[0]);
+        requestBuffer.writeByte(MAGIC[1]);
         // 3. length
         int len = body.length;
         byte[] lenBytes = ByteUtils.int2bytes(len);
         requestBuffer.writeBytes(lenBytes);
-        System.out.println(new String(new byte[]{(byte) 0xda, (byte) 0xdd}));
+        // 4. body
+        requestBuffer.writeBytes(body);
+        System.out.println("request length:" + requestBuffer.readableBytes());
+
+        // client
+        Socket client = new Socket("127.0.0.1", 8081);
+        byte[] req = new byte[requestBuffer.readableBytes()];
+        requestBuffer.readBytes(req);
+
+        for (int i = 0; i < 20; i++) {
+            client.getOutputStream().write(req);
+        }
+
+        System.in.read();
     }
 }
