@@ -1,8 +1,8 @@
 package com.wxf.rpc.sms;
 
 
-import com.wxf.myrpc.provider.annotation.WxfRpcService;
-import com.wxf.rpc.SmsService;
+import com.wxf.wxfrpc.provider.annotation.WxfRpcService;
+import com.wxf.rpc.api.SmsService;
 
 @WxfRpcService
 public class SmsServiceImpl implements SmsService {

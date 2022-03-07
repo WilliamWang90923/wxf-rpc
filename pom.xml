@@ -7,6 +7,7 @@
         <module>order-service</module>
 		<module>service-api</module>
 		<module>sms-service</module>
+		<module>wxfRpc</module>
 	</modules>
     <parent>
 		<groupId>org.springframework.boot</groupId>
@@ -20,7 +21,8 @@
 	<name>wxf-rpc</name>
 	<description>my rpc project </description>
 	<properties>
-		<java.version>11</java.version>
+		<maven.compiler.source>14</maven.compiler.source>
+		<maven.compiler.target>14</maven.compiler.target>
 	</properties>
 	<dependencies>
 		<dependency>

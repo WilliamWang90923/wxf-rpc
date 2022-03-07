@@ -1,11 +1,11 @@
 package com.wxf.rpc.order;
 
-import com.wxf.myrpc.consumer.annotation.WxfRpcReference;
-import com.wxf.rpc.OrderService;
-import com.wxf.rpc.SmsService;
-import org.springframework.stereotype.Service;
+import com.wxf.wxfrpc.consumer.annotation.WxfRpcReference;
+import com.wxf.wxfrpc.provider.annotation.WxfRpcService;
+import com.wxf.rpc.api.OrderService;
+import com.wxf.rpc.api.SmsService;
 
-@Service
+@WxfRpcService
 public class OrderServiceImpl implements OrderService {
 
     @WxfRpcReference
