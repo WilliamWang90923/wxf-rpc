@@ -2,8 +2,17 @@ package com.wxf.wxfrpc.provider.server;
 
 public class RpcResponse {
 
+    private String requestId;
     private int status;
     private Object content;
+
+    public String getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
+    }
 
     public int getStatus() {
         return status;
@@ -24,7 +33,8 @@ public class RpcResponse {
     @Override
     public String toString() {
         return "RpcResponse{" +
-                "status=" + status +
+                "requestId=" + requestId +
+                ", status=" + status +
                 ", content=" + content +
                 '}';
     }

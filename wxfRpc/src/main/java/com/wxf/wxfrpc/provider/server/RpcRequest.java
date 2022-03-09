@@ -1,13 +1,19 @@
 package com.wxf.wxfrpc.provider.server;
 
 import java.util.Arrays;
+import java.util.UUID;
 
 public class RpcRequest {
 
+    private String requestId;
     private String className;
     private String methodName;
     private Object[] args;
     private Class[] parameterTypes;
+
+    public RpcRequest() {
+        this.requestId = UUID.randomUUID().toString();
+    }
 
     public String getClassName() {
         return className;
@@ -29,6 +35,10 @@ public class RpcRequest {
         return args;
     }
 
+    public String getRequestId() {
+        return requestId;
+    }
+
     public void setArgs(Object[] args) {
         this.args = args;
     }
@@ -44,7 +54,8 @@ public class RpcRequest {
     @Override
     public String toString() {
         return "RpcRequest{" +
-                "className='" + className + '\'' +
+                "requestId=" + requestId +
+                ", className='" + className + '\'' +
                 ", methodName='" + methodName + '\'' +
                 ", args=" + Arrays.toString(args) +
                 ", parameterTypes=" + Arrays.toString(parameterTypes) +

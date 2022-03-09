@@ -20,11 +20,6 @@ public class NettyProviderHandler extends SimpleChannelInboundHandler {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
 
-//        ByteBuf buf = (ByteBuf) msg;
-//        byte[] msgs = new byte[buf.readableBytes()];
-//        System.out.println(msg);
-//        buf.readBytes(msgs);
-
         RpcRequest rpcRequest = (RpcRequest) msg;
         String className = rpcRequest.getClassName();
         String methodName = rpcRequest.getMethodName();
@@ -37,11 +32,12 @@ public class NettyProviderHandler extends SimpleChannelInboundHandler {
         Object res = method.invoke(serviceBean, args);
 
         RpcResponse response = new RpcResponse();
+        response.setRequestId(rpcRequest.getRequestId());
         response.setStatus(200);
         response.setContent(res);
 
-        byte[] serialize = new JsonSerialization().serialize(response);
-        ctx.writeAndFlush(Unpooled.wrappedBuffer(serialize));
+         // byte[] serialize = new JsonSerialization().serialize(response);
+        ctx.writeAndFlush(response);
 
     }
 }

@@ -28,6 +28,7 @@ public class WxfRRpcConsumerPostProcessor implements ApplicationContextAware, In
 
                 Object referenceBean = ProxyFactory.getProxy(new Class[]{field.getType()});
                 field.setAccessible(true);
+                // substitute field bean with referenceBean
                 field.set(bean, referenceBean);
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
