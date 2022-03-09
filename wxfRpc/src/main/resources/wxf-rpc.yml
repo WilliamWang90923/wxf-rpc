@@ -1,0 +1,5 @@
+spring:
+  redis:
+    host: 192.168.5.129
+    password: wxf
+    port: 6379

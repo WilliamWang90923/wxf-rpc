@@ -9,7 +9,7 @@ import java.io.IOException;
 
 //@Configuration
 @ComponentScan("com.wxf.rpc")
-@PropertySource("classpath:/wxf-rpc.properties")
+@PropertySource("classpath:/wxf-rpc.yml")
 @EnableWxfRpcProvider
 public class SmsApplication {
 
